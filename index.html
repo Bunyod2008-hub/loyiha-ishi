@@ -3,14 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kalkulyator</title>
+  <title>Sekundomer</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="card">
-    <h1>Kalkulyator</h1>
-    <div id="screen" aria-live="polite">0</div>
-    <div id="keys"></div>
+    <h1>Sekundomer</h1>
+    <div id="time">00:00.00</div>
+    <div class="row">
+      <button id="start">Boshlash</button>
+      <button id="lap">Aylanish</button>
+      <button id="reset">Tozalash</button>
+    </div>
+    <ol id="laps"></ol>
   </main>
   <script src="script.js"></script>
 </body>

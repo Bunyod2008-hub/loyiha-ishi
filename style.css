@@ -33,17 +33,6 @@ button {
 button:hover { background: #1f55c4; }
 button:focus-visible { outline: 3px solid #f2b705; outline-offset: 2px; }
 
-#screen {
-  background: #1b2a41;
-  color: #fff;
-  text-align: right;
-  font-size: 2rem;
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  overflow: hidden;
-}
-#keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-#keys button { padding: 16px; font-size: 1.1rem; background: #dfe7f3; color: #1b2a41; }
-#keys button.op { background: #2f6fed; color: #fff; }
-#keys button.eq { background: #f2b705; color: #1b2a41; }
+#time { font-size: 2.6rem; text-align: center; font-variant-numeric: tabular-nums; margin: 12px 0; }
+.row { display: flex; gap: 8px; justify-content: center; }
+#laps { padding-left: 24px; font-variant-numeric: tabular-nums; }

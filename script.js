@@ -1,30 +1,45 @@
-const keys = ['C', '(', ')', '/', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '⌫', '='];
-const screen = document.getElementById('screen');
-const box = document.getElementById('keys');
-let expr = '';
+const time = document.getElementById('time');
+const start = document.getElementById('start');
+const laps = document.getElementById('laps');
 
-keys.forEach(k => {
-  const b = document.createElement('button');
-  b.textContent = k;
-  if ('/*-+'.includes(k)) b.className = 'op';
-  if (k === '=') b.className = 'eq';
-  b.onclick = () => press(k);
-  box.append(b);
-});
+let elapsed = 0, last = 0, timer = null;
 
-function press(k) {
-  if (k === 'C') expr = '';
-  else if (k === '⌫') expr = expr.slice(0, -1);
-  else if (k === '=') {
-    try {
-      if (!/^[0-9+\-*/(). ]+$/.test(expr)) throw 0;
-      expr = String(Function('return ' + expr)());
-    } catch {
-      expr = 'Xato';
-    }
+const fmt = ms => {
+  const m = Math.floor(ms / 60000);
+  const s = Math.floor(ms % 60000 / 1000);
+  const c = Math.floor(ms % 1000 / 10);
+  return [m, s].map(n => String(n).padStart(2, '0')).join(':') + '.' + String(c).padStart(2, '0');
+};
+
+start.onclick = () => {
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+    start.textContent = 'Davom etish';
   } else {
-    if (expr === 'Xato') expr = '';
-    expr += k;
+    last = Date.now();
+    timer = setInterval(() => {
+      const n = Date.now();
+      elapsed += n - last;
+      last = n;
+      time.textContent = fmt(elapsed);
+    }, 30);
+    start.textContent = "To'xtatish";
   }
-  screen.textContent = expr || '0';
-}
+};
+
+document.getElementById('lap').onclick = () => {
+  if (!elapsed) return;
+  const li = document.createElement('li');
+  li.textContent = fmt(elapsed);
+  laps.prepend(li);
+};
+
+document.getElementById('reset').onclick = () => {
+  clearInterval(timer);
+  timer = null;
+  elapsed = 0;
+  time.textContent = '00:00.00';
+  laps.innerHTML = '';
+  start.textContent = 'Boshlash';
+};
